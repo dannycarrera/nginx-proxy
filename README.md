@@ -1,5 +1,5 @@
 ![latest 0.7.0](https://img.shields.io/badge/latest-0.7.0-green.svg?style=flat)
-![nginx 1.17.5](https://img.shields.io/badge/nginx-1.17.5-brightgreen.svg) ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg) [![Build Status](https://travis-ci.org/jwilder/nginx-proxy.svg?branch=master)](https://travis-ci.org/jwilder/nginx-proxy) [![](https://img.shields.io/docker/stars/jwilder/nginx-proxy.svg)](https://hub.docker.com/r/jwilder/nginx-proxy 'DockerHub') [![](https://img.shields.io/docker/pulls/jwilder/nginx-proxy.svg)](https://hub.docker.com/r/jwilder/nginx-proxy 'DockerHub')
+![nginx 1.17.8](https://img.shields.io/badge/nginx-1.17.8-brightgreen.svg) ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg) [![Build Status](https://travis-ci.org/jwilder/nginx-proxy.svg?branch=master)](https://travis-ci.org/jwilder/nginx-proxy) [![](https://img.shields.io/docker/stars/jwilder/nginx-proxy.svg)](https://hub.docker.com/r/jwilder/nginx-proxy 'DockerHub') [![](https://img.shields.io/docker/pulls/jwilder/nginx-proxy.svg)](https://hub.docker.com/r/jwilder/nginx-proxy 'DockerHub')
 
 
 nginx-proxy sets up a container running nginx and [docker-gen][1].  docker-gen generates reverse proxy configs for nginx and reloads nginx when containers are started and stopped.
@@ -158,7 +158,7 @@ If you would like to connect to FastCGI backend, set `VIRTUAL_PROTO=fastcgi` on 
 backend container. Your backend container should then listen on a port rather
 than a socket and expose that port.
  
-### FastCGI Filr Root Directory
+### FastCGI File Root Directory
 
 If you use fastcgi,you can set `VIRTUAL_ROOT=xxx`  for your root directory
 
@@ -172,7 +172,7 @@ To set the default host for nginx use the env var `DEFAULT_HOST=foo.bar.com` for
 
 ### Separate Containers
 
-nginx-proxy can also be run as two separate containers using the [jwilder/docker-gen](https://index.docker.io/u/jwilder/docker-gen/)
+nginx-proxy can also be run as two separate containers using the [jwilder/docker-gen](https://hub.docker.com/r/jwilder/docker-gen)
 image and the official [nginx](https://registry.hub.docker.com/_/nginx/) image.
 
 You may want to do this to prevent having the docker socket bound to a publicly exposed container service.
@@ -249,7 +249,7 @@ is reloaded.  This generation process only occurs the first time you start `ngin
 > key on startup by passing `-e DHPARAM_BITS=1024`.
 
 In the separate container setup, no pregenerated key will be available and neither the
-[jwilder/docker-gen](https://index.docker.io/u/jwilder/docker-gen/) image nor the offical
+[jwilder/docker-gen](https://hub.docker.com/r/jwilder/docker-gen) image nor the offical
 [nginx](https://registry.hub.docker.com/_/nginx/) image will generate one. If you still want A+ security
 in a separate container setup, you'll have to generate a 2048 bits DH key file manually and mount it on the
 nginx container, at `/etc/nginx/dhparam/dhparam.pem`.
@@ -310,8 +310,8 @@ a 500.
 To serve traffic in both SSL and non-SSL modes without redirecting to SSL, you can include the
 environment variable `HTTPS_METHOD=noredirect` (the default is `HTTPS_METHOD=redirect`).  You can also
 disable the non-SSL site entirely with `HTTPS_METHOD=nohttp`, or disable the HTTPS site with
-`HTTPS_METHOD=nohttps`. `HTTPS_METHOD` must be specified on each container for which you want to
-override the default behavior.  If `HTTPS_METHOD=noredirect` is used, Strict Transport Security (HSTS)
+`HTTPS_METHOD=nohttps`. `HTTPS_METHOD` can be specified on each container for which you want to
+override the default behavior or on the proxy container to set it globally. If `HTTPS_METHOD=noredirect` is used, Strict Transport Security (HSTS)
 is disabled to prevent HTTPS users from being redirected by the client.  If you cannot get to the HTTP
 site after changing this setting, your browser has probably cached the HSTS policy and is automatically
 redirecting you back to HTTPS.  You will need to clear your browser's HSTS cache or use an incognito
